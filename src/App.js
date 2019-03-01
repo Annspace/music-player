@@ -1,27 +1,27 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Playlist from './components/Playlist/index';
+
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      songs: [
+        {
+          id: 1, title: 'У самого синего моря', artist: 'Утёсов', duration: 2,
+        },
+        {
+          id: 2, title: 'Hop', artist: 'Eminem', duration: 5,
+        }],
+    };
+  }
+
   render() {
+    const { songs } = this.state;
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit
-            <code>src/App.js</code>
-            and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <Playlist songs={songs} />
       </div>
     );
   }
