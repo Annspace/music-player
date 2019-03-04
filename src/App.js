@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import './App.css';
+import Loader from 'react-loader-spinner';
 import Playlist from './components/Playlist';
 
 
@@ -39,7 +40,14 @@ class App extends Component {
     const { songs, isLoading, errorText } = this.state;
     return (
       <div className="App">
-        {isLoading && <div>Loading...</div>}
+        {isLoading && (
+        <Loader
+          type="Ball-Triangle"
+          color="#00BFFF"
+          height="100"
+          width="100"
+        />
+        ) }
         {errorText && <div>{errorText}</div>}
         <Playlist songs={songs} />
       </div>
