@@ -1,33 +1,30 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './Track.css';
 import PropTypes from 'prop-types';
+import secToMin from 'sec-to-min';
 
-class Track extends Component {
-  render() {
-    const { title, artist, duration } = this.props;
-    return (
-      <div>
-        {title}
-        {' '}
-        <b>{artist}</b>
-        {' '}
-        {duration}
-        {' '}
-min
-      </div>
-    );
-  }
+function Track(props) {
+  const { title, artist, duration } = props;
+  return (
+    <div>
+      {title}
+      {' '}
+      <b>{artist}</b>
+      {' '}
+      {secToMin(duration)}
+      {' '}
+      min
+    </div>
+  );
 }
 
 Track.propTypes = {
-  title: PropTypes.string,
-  artist: PropTypes.string,
+  title: PropTypes.string.isRequired,
+  artist: PropTypes.string.isRequired,
   duration: PropTypes.number,
 };
 
 Track.defaultProps = {
-  title: 'No name',
-  artist: 'No sinder',
   duration: 'Unknown',
 };
 

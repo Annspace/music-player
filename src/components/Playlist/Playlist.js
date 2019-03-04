@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './Playlist.css';
-import Track from '../Track/index';
+import Track from '../Track';
 
 class Playlist extends Component {
   render() {
@@ -9,14 +9,12 @@ class Playlist extends Component {
     return (
       <div>
         {
-         songs.map(song => (
-           <Track
-             key={song.id}
-             title={song.title}
-             artist={song.artist}
-             duration={song.duration}
-           />
-         ))
+         songs.map((song) => {
+           const {
+             id, title, artist, duration,
+           } = song;
+           return <Track key={id} title={title} artist={artist} duration={duration} />;
+         })
       }
       </div>
     );
