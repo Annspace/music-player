@@ -8,6 +8,7 @@ import Playlist from './components/Playlist';
 class App extends Component {
   constructor() {
     super();
+    this.getData = this.getData.bind(this);
     this.state = {
       songs: [],
       isLoading: true,
@@ -19,9 +20,10 @@ class App extends Component {
     this.getData();
   }
 
-  getData = () => {
+  getData() {
     this.setState({ errorText: '' });
-    axios.get(API_HOST)
+    const url = `${API_HOST}/tracks`;
+    axios.get(url)
       .then((response) => {
         const songs = response.data;
         this.setState({ songs, isLoading: false });
@@ -39,7 +41,7 @@ class App extends Component {
           }
         }
       });
-  };
+  }
 
   render() {
     const { songs, isLoading, errorText } = this.state;
