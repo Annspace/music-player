@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import './App.css';
 import Loader from 'react-loader-spinner';
+import { API_HOST } from './config';
 import Playlist from './components/Playlist';
-
 
 class App extends Component {
   constructor() {
@@ -16,7 +16,12 @@ class App extends Component {
   }
 
   componentDidMount() {
-    axios.get('http://176.57.217.40:3000/tracks')
+    this.getData();
+  }
+
+  getData = () => {
+    this.setState({ errorText: '' });
+    axios.get(API_HOST)
       .then((response) => {
         const songs = response.data;
         this.setState({ songs, isLoading: false });
@@ -34,7 +39,7 @@ class App extends Component {
           }
         }
       });
-  }
+  };
 
   render() {
     const { songs, isLoading, errorText } = this.state;
@@ -48,7 +53,13 @@ class App extends Component {
           width="100"
         />
         ) }
-        {errorText && <div>{errorText}</div>}
+        {errorText && (
+        <div>
+          {errorText}
+          {' '}
+          <button type="button" onClick={this.getData}>Try again!</button>
+        </div>
+        ) }
         <Playlist songs={songs} />
       </div>
     );

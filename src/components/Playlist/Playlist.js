@@ -13,7 +13,14 @@ class Playlist extends Component {
            const {
              id, title, artist, duration,
            } = song;
-           return <Track key={id} title={title} artist={artist} duration={duration} />;
+           return (
+             <Track
+               key={id}
+               title={title}
+               artist={artist}
+               duration={duration}
+             />
+           );
          })
       }
       </div>
