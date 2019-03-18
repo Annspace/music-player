@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import './App.css';
 import Header from '../components/Header';
-import Feed from "./Feed";
-import Radio from "./Radio";
+import Feed from './Feed';
+import Radio from './Radio';
 import Playlists from './Playlists';
-import Playlist from './Playlist';
-import Help from "./Help";
+import Tracks from './Tracks';
+import Help from './Help';
 
 class App extends Component {
   constructor(props) {
@@ -17,12 +17,12 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
-          <Header/>
-          <Route exact path="/" component={Feed}/>
-          <Route path="/radio" component={Radio}/>
-          <Route exact path="/playlists" component={Playlists}/>
-          <Route path="/playlists/:id" component={Playlist}/>
-          <Route path="/help" component={Help}/>
+          <Header />
+          <Route exact path="/" component={Feed} />
+          <Route path="/radio" component={Radio} />
+          <Route exact path="/playlists" component={Playlists} />
+          <Route path="/playlists/:id" component={Tracks} />
+          <Route path="/help" component={Help} />
         </div>
       </Router>
     );

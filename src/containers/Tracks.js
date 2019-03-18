@@ -1,25 +1,22 @@
 import React, { Component } from 'react';
-import {API_HOST} from "../config";
-import axios from "axios";
-import Track from "../components/Track";
+import axios from 'axios';
+import { API_HOST } from '../config';
+import Track from '../components/Track';
 
-// function Playlist({match}) {
-//   const playlistId = match.params.id;
-//   return (
-//     <h1>Hello {playlistId}!</h1>
-//
-//   );
-// }
-
-class Playlist extends Component {
+class Tracks extends Component {
   constructor(props) {
     super(props);
     this.state = {
       songs: [],
       isLoading: true,
       errorText: '',
-    }
+    };
   }
+
+  componentDidMount() {
+    this.getData();
+  }
+
   getData() {
     this.setState({ errorText: '' });
     const playlistId = this.props.match.params.id;
@@ -43,12 +40,9 @@ class Playlist extends Component {
         }
       });
   }
-  componentDidMount() {
-    this.getData();
-  }
 
   render() {
-    const {songs, isLoading, errorText} = this.state;
+    const { songs, isLoading, errorText } = this.state;
     return (
       <div>
         {errorText && <div>{errorText}</div>}
@@ -63,7 +57,8 @@ class Playlist extends Component {
                   key={id}
                   title={title}
                   artist={artist}
-                  duration={duration}/>
+                  duration={duration}
+                />
               );
             })
           }
@@ -73,4 +68,4 @@ class Playlist extends Component {
   }
 }
 
-export default Playlist;
+export default Tracks;

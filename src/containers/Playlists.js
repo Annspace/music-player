@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {API_HOST} from "../config";
-import axios from "axios";
-import Loader from "react-loader-spinner";
-import Playlist from "../components/Playlist";
-import { Link } from "react-router-dom";
-
+import axios from 'axios';
+import Loader from 'react-loader-spinner';
+import { API_HOST } from '../config';
+import Playlist from '../components/Playlist';
 
 class Playlists extends Component {
   constructor(props) {
@@ -17,9 +15,11 @@ class Playlists extends Component {
       errorText: '',
     };
   }
+
   componentDidMount() {
     this.getData();
   }
+
   getData() {
     this.setState({ errorText: '' });
     const url = `${API_HOST}/playlists`;
@@ -42,6 +42,7 @@ class Playlists extends Component {
         }
       });
   }
+
   render() {
     const { playlists, isLoading, errorText } = this.state;
     return (
@@ -61,16 +62,9 @@ class Playlists extends Component {
             <button type="button" onClick={this.getData}>Try again!</button>
           </div>
         )}
-        {/* todo: вынести в отдельный компонент */}
-        {playlists.map((list)=> {
-          return (
-            <div key={list.id}>
-              <Link to={`/playlists/${list.id}`}>
-                {list.title}
-              </Link>
-            </div>
-          );
-        })}
+        {playlists.map(list => (
+          <Playlist id={list.id} title={list.title} />
+        ))}
       </div>
     );
   }
