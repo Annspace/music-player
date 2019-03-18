@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import axios from 'axios';
-import './App.css';
 import Loader from 'react-loader-spinner';
-import { API_HOST } from './config';
-import Playlist from './components/Playlist';
+import { API_HOST } from '../config';
+import Playlist from '../components/Playlist';
 
-class App extends Component {
-  constructor() {
-    super();
+class Playlists extends Component {
+  constructor(props) {
+    super(props);
     this.getData = this.getData.bind(this);
     this.state = {
-      songs: [],
+      playlists: [],
       isLoading: true,
       errorText: '',
     };
@@ -22,11 +22,11 @@ class App extends Component {
 
   getData() {
     this.setState({ errorText: '' });
-    const url = `${API_HOST}/tracks`;
+    const url = `${API_HOST}/playlists`;
     axios.get(url)
       .then((response) => {
-        const songs = response.data;
-        this.setState({ songs, isLoading: false });
+        const playlists = response.data;
+        this.setState({ playlists, isLoading: false });
       })
       .catch((error) => {
         this.setState({ isLoading: false });
@@ -44,28 +44,30 @@ class App extends Component {
   }
 
   render() {
-    const { songs, isLoading, errorText } = this.state;
+    const { playlists, isLoading, errorText } = this.state;
     return (
-      <div className="App">
+      <div>
         {isLoading && (
-        <Loader
-          type="Ball-Triangle"
-          color="#00BFFF"
-          height="100"
-          width="100"
-        />
-        ) }
+          <Loader
+            type="Ball-Triangle"
+            color="#00BFFF"
+            height="100"
+            width="100"
+          />
+        )}
         {errorText && (
-        <div>
-          {errorText}
-          {' '}
-          <button type="button" onClick={this.getData}>Try again!</button>
-        </div>
-        ) }
-        <Playlist songs={songs} />
+          <div>
+            {errorText}
+            {' '}
+            <button type="button" onClick={this.getData}>Try again!</button>
+          </div>
+        )}
+        {playlists.map(list => (
+          <Playlist id={list.id} title={list.title} />
+        ))}
       </div>
     );
   }
 }
 
-export default App;
+export default Playlists;
