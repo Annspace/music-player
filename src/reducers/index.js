@@ -1,14 +1,15 @@
-import { LOADING, GET_PLAYLISTS_SUCCSESS, GET_PLAYLISTS_ERROR } from '../actions';
+import { GET_PLAYLISTS, GET_PLAYLISTS_SUCCSESS, GET_PLAYLISTS_ERROR } from '../actions';
 
-export const initialState = {
+const initialState = {
   playlists: [],
+  songs: [],
   isLoading: false,
   errorText: '',
 };
 
 export default function app(state = initialState, action) {
   switch (action.type) {
-    case LOADING:
+    case GET_PLAYLISTS:
       return Object.assign({}, state, {
         isLoading: true,
       });

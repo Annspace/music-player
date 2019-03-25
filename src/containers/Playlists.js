@@ -2,21 +2,19 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Loader from 'react-loader-spinner';
 import { connect } from 'react-redux';
-import { API_HOST } from '../config';
-import { getPlaylists, loadingPlaylists } from '../actions';
+import { getPlaylists } from '../actions';
 import Playlist from '../components/Playlist';
 
 class Playlists extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   componentDidMount() {
-    this.loadingPlaylists();
+    const { getData } = this.props;
+    getData();
   }
 
   render() {
-    const { playlists, isLoading, errorText } = this.state;
+    const {
+      playlists, isLoading, errorText, getData,
+    } = this.props;
     return (
       <div>
         {isLoading && (
@@ -31,7 +29,7 @@ class Playlists extends Component {
           <div>
             {errorText}
             {' '}
-            <button type="button" onClick={this.getData}>Try again!</button>
+            <button type="button" onClick={getData}>Try again!</button>
           </div>
         )}
         {playlists.map(list => (
@@ -43,15 +41,17 @@ class Playlists extends Component {
 }
 
 Playlists.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  getData: PropTypes.func.isRequired,
+  playlists: PropTypes.instanceOf(Array).isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  errorText: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = state => ({
   ...state,
 });
 const mapDispatchToProps = dispatch => ({
-  loadingPlaylists: () => dispatch(loadingPlaylists()),
-  getPlaylists: () => dispatch(getPlaylists()),
+  getData: () => dispatch(getPlaylists()),
 });
 
 

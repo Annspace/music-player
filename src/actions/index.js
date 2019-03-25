@@ -1,14 +1,9 @@
 import axios from 'axios';
+import { API_HOST } from '../config';
 
-export const LOADING = 'LOADING';
+export const GET_PLAYLISTS = 'GET_PLAYLISTS';
 export const GET_PLAYLISTS_SUCCSESS = 'GET_PLAYLISTS_SUCCSESS';
 export const GET_PLAYLISTS_ERROR = 'GET_PLAYLISTS_ERROR';
-
-export function loadingPlaylists() {
-  return {
-    type: LOADING,
-  };
-}
 
 function getPlaylistsSuccsess(playlists) {
   return {
@@ -25,7 +20,8 @@ function getPlaylistsError(error) {
 
 export function getPlaylists() {
   return (dispatch) => {
-    axios.get('http://176.57.217.40:3000/playlists')
+    dispatch({ type: GET_PLAYLISTS });
+    axios.get(`${API_HOST}/playlists`)
       .then((response) => {
         dispatch(getPlaylistsSuccsess(response.data));
       })
