@@ -13,7 +13,7 @@ class Playlists extends Component {
 
   render() {
     const {
-      playlists, isLoading, errorText, getData,
+      playlistsItems, isLoading, errorText, getData,
     } = this.props;
     return (
       <div>
@@ -32,7 +32,7 @@ class Playlists extends Component {
             <button type="button" onClick={getData}>Try again!</button>
           </div>
         )}
-        {playlists.map(list => (
+        {playlistsItems.map(list => (
           <Playlist key={list.id} id={list.id} title={list.title} />
         ))}
       </div>
@@ -42,13 +42,15 @@ class Playlists extends Component {
 
 Playlists.propTypes = {
   getData: PropTypes.func.isRequired,
-  playlists: PropTypes.instanceOf(Array).isRequired,
+  playlistsItems: PropTypes.instanceOf(Array).isRequired,
   isLoading: PropTypes.bool.isRequired,
   errorText: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = state => ({
-  ...state,
+  playlistsItems: state.playlists.playlistsItems,
+  isLoading: state.playlists.isLoading,
+  errorText: state.playlists.errorText,
 });
 const mapDispatchToProps = dispatch => ({
   getData: () => dispatch(getPlaylists()),
