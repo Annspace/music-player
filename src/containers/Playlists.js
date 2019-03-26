@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Loader from 'react-loader-spinner';
 import { connect } from 'react-redux';
+import Loader from 'react-loader-spinner';
+import Error from '../components/Error';
 import { getPlaylists } from '../actions';
 import Playlist from '../components/Playlist';
 
@@ -27,8 +28,7 @@ class Playlists extends Component {
         )}
         {errorText && (
           <div>
-            {errorText}
-            {' '}
+            <Error errorText={errorText}/>
             <button type="button" onClick={getData}>Try again!</button>
           </div>
         )}

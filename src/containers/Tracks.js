@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Loader from 'react-loader-spinner';
 import PropTypes from 'prop-types';
+import Error from '../components/Error';
 import Track from '../components/Track';
 import { getTracks } from '../actions';
 
@@ -24,7 +25,7 @@ class Tracks extends Component {
             width="100"
           />
         )}
-        {errorText && <div>{errorText}</div>}
+        {errorText && <Error errorText={errorText} />}
         <div>
           {
             tracksItems.map((track) => {

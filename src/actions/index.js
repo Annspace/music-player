@@ -55,7 +55,7 @@ export function getTracks(playlistId) {
         dispatch(getTracksSuccsess(response.data));
       })
       .catch((error) => {
-        dispatch(getTracksError(error));
+        dispatch(getTracksError(error.text));
       });
   };
 }
