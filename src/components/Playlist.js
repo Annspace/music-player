@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 class Playlist extends Component {
   render() {
@@ -15,5 +16,10 @@ class Playlist extends Component {
     );
   }
 }
+
+Playlist.ptopTypes = {
+  id: PropTypes.number.isRequired,
+  title: PropTypes.string.isRequired,
+};
 
 export default Playlist;

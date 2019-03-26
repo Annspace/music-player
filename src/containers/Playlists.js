@@ -1,50 +1,21 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios';
+import { connect } from 'react-redux';
 import Loader from 'react-loader-spinner';
-import { API_HOST } from '../config';
+import Error from '../components/Error';
+import { getPlaylists } from '../actions';
 import Playlist from '../components/Playlist';
 
 class Playlists extends Component {
-  constructor(props) {
-    super(props);
-    this.getData = this.getData.bind(this);
-    this.state = {
-      playlists: [],
-      isLoading: true,
-      errorText: '',
-    };
-  }
-
   componentDidMount() {
-    this.getData();
-  }
-
-  getData() {
-    this.setState({ errorText: '' });
-    const url = `${API_HOST}/playlists`;
-    axios.get(url)
-      .then((response) => {
-        const playlists = response.data;
-        this.setState({ playlists, isLoading: false });
-      })
-      .catch((error) => {
-        this.setState({ isLoading: false });
-        if (error.response) {
-          switch (error.response.status) {
-            case 404:
-              this.setState({ errorText: `Ooops 404 ${error.response.statusText}` });
-              break;
-            default:
-              this.setState({ errorText: `Oops ${error.response.status} ${error.response.statusText}` });
-              break;
-          }
-        }
-      });
+    const { getData } = this.props;
+    getData();
   }
 
   render() {
-    const { playlists, isLoading, errorText } = this.state;
+    const {
+      playlistsItems, isLoading, errorText, getData,
+    } = this.props;
     return (
       <div>
         {isLoading && (
@@ -57,17 +28,33 @@ class Playlists extends Component {
         )}
         {errorText && (
           <div>
-            {errorText}
-            {' '}
-            <button type="button" onClick={this.getData}>Try again!</button>
+            <Error errorText={errorText}/>
+            <button type="button" onClick={getData}>Try again!</button>
           </div>
         )}
-        {playlists.map(list => (
-          <Playlist id={list.id} title={list.title} />
+        {playlistsItems.map(list => (
+          <Playlist key={list.id} id={list.id} title={list.title} />
         ))}
       </div>
     );
   }
 }
 
-export default Playlists;
+Playlists.propTypes = {
+  getData: PropTypes.func.isRequired,
+  playlistsItems: PropTypes.instanceOf(Array).isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  errorText: PropTypes.string.isRequired,
+};
+
+const mapStateToProps = state => ({
+  playlistsItems: state.playlists.playlistsItems,
+  isLoading: state.playlists.isLoading,
+  errorText: state.playlists.errorText,
+});
+const mapDispatchToProps = dispatch => ({
+  getData: () => dispatch(getPlaylists()),
+});
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Playlists);

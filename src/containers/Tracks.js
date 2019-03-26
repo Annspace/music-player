@@ -1,57 +1,37 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-import { API_HOST } from '../config';
+import { connect } from 'react-redux';
+import Loader from 'react-loader-spinner';
+import PropTypes from 'prop-types';
+import Error from '../components/Error';
 import Track from '../components/Track';
+import { getTracks } from '../actions';
 
 class Tracks extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      songs: [],
-      isLoading: true,
-      errorText: '',
-    };
-  }
-
   componentDidMount() {
-    this.getData();
-  }
-
-  getData() {
-    this.setState({ errorText: '' });
     const playlistId = this.props.match.params.id;
-    const url = `${API_HOST}/playlists/${playlistId}`;
-    axios.get(url)
-      .then((response) => {
-        const songs = response.data;
-        this.setState({ songs, isLoading: false });
-      })
-      .catch((error) => {
-        this.setState({ isLoading: false });
-        if (error.response) {
-          switch (error.response.status) {
-            case 404:
-              this.setState({ errorText: `Ooops 404 ${error.response.statusText}` });
-              break;
-            default:
-              this.setState({ errorText: `Oops ${error.response.status} ${error.response.statusText}` });
-              break;
-          }
-        }
-      });
+    const { getData } = this.props;
+    getData(playlistId);
   }
 
   render() {
-    const { songs, isLoading, errorText } = this.state;
+    const { tracksItems, isLoading, errorText } = this.props;
     return (
       <div>
-        {errorText && <div>{errorText}</div>}
+        {isLoading && (
+          <Loader
+            type="Ball-Triangle"
+            color="#00BFFF"
+            height="100"
+            width="100"
+          />
+        )}
+        {errorText && <Error errorText={errorText} />}
         <div>
           {
-            songs.map((song) => {
+            tracksItems.map((track) => {
               const {
                 id, title, artist, duration,
-              } = song;
+              } = track;
               return (
                 <Track
                   key={id}
@@ -68,4 +48,20 @@ class Tracks extends Component {
   }
 }
 
-export default Tracks;
+Tracks.propTypes = {
+  getData: PropTypes.func.isRequired,
+  tracksItems: PropTypes.instanceOf(Array).isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  errorText: PropTypes.string.isRequired,
+};
+
+const mapStateToProps = state => ({
+  tracksItems: state.tracks.tracksItems,
+  isLoading: state.tracks.isLoading,
+  errorText: state.tracks.errorText,
+});
+const mapDispatchToProps = dispatch => ({
+  getData: id => dispatch(getTracks(id)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Tracks);
