@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
+import {BrowserRouter as Router, Route} from 'react-router-dom';
 import './App.css';
 import Main from './Main';
 import Login from './Login';
@@ -24,7 +24,7 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
-          {loggedIn ? <Main /> : <Login onSubmit={this.logIn} />}
+          {loggedIn ? <Route exact path="/" component={Main} /> : <Login onSubmit={this.logIn} />}
         </div>
       </Router>
     );
