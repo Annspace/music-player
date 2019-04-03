@@ -28,7 +28,7 @@ class Playlists extends Component {
         )}
         {errorText && (
           <div>
-            <Error errorText={errorText}/>
+            <Error errorText={errorText} />
             <button type="button" onClick={getData}>Try again!</button>
           </div>
         )}

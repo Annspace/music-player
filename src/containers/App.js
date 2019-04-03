@@ -1,28 +1,30 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import './App.css';
-import Header from '../components/Header';
-import Feed from './Feed';
-import Radio from './Radio';
-import Playlists from './Playlists';
-import Tracks from './Tracks';
-import Help from './Help';
+import Main from './Main';
+import Login from './Login';
 
 class App extends Component {
   constructor(props) {
     super(props);
+    this.logIn = this.logIn.bind(this);
+    this.state = {
+      loggedIn: false,
+    };
+  }
+
+  logIn() {
+    this.setState({
+      loggedIn: true,
+    });
   }
 
   render() {
+    const { loggedIn } = this.state;
     return (
       <Router>
         <div className="App">
-          <Header />
-          <Route exact path="/" component={Feed} />
-          <Route path="/radio" component={Radio} />
-          <Route exact path="/playlists" component={Playlists} />
-          <Route path="/playlists/:id" component={Tracks} />
-          <Route path="/help" component={Help} />
+          {loggedIn ? <Main /> : <Login onSubmit={this.logIn} />}
         </div>
       </Router>
     );
