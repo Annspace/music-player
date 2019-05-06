@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import {BrowserRouter as Router, Route} from 'react-router-dom';
+import {
+  BrowserRouter as Router, Route, Redirect, Switch,
+} from 'react-router-dom';
 import './App.css';
 import Main from './Main';
 import Login from './Login';
@@ -24,7 +26,11 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
-          {loggedIn ? <Route exact path="/" component={Main} /> : <Login onSubmit={this.logIn} />}
+          <Switch>
+            <Route exact path="/" component={Main} />
+            <Route exact path="/login" render={() => (<Login onSubmit={this.logIn} />)} />
+          </Switch>
+          {loggedIn ? <Redirect to="/" /> : <Redirect to="/login" />}
         </div>
       </Router>
     );
