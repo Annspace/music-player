@@ -1,20 +1,23 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { login } from '../actions';
 
 class Login extends Component {
-  constructor(props) {
-    super(props);
-    this.onChange = this.onChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
+  constructor() {
+    super();
     this.state = {
       username: '',
       password: '',
     };
+    this.onSubmitForm = this.onSubmitForm.bind(this);
+    this.onChange = this.onChange.bind(this);
   }
 
-  onSubmit(event) {
+  onSubmitForm(event) {
     event.preventDefault();
-    const { onSubmit } = this.props;
-    onSubmit();
+    const { auth } = this.props;
+    const { username, password } = this.state;
+    auth({ username, password }, this.props.history);
   }
 
   onChange(event) {
@@ -25,9 +28,10 @@ class Login extends Component {
 
   render() {
     const { username, password } = this.state;
+    const { errorText } = this.props;
     return (
       <div>
-        <form onSubmit={this.onSubmit}>
+        <form onSubmit={this.onSubmitForm}>
           <div>Username</div>
           <input type="text" name="username" onChange={this.onChange} value={username} />
           <div>Password</div>
@@ -38,9 +42,19 @@ class Login extends Component {
             </button>
           </div>
         </form>
+        {errorText.length > 0 ? <div>{errorText}</div> : ''}
       </div>
     );
   }
 }
 
-export default Login;
+const mapStateToProps = state => ({
+  authenticating: state.authUser.authenticating,
+  authenticated: state.authUser.authenticated,
+  errorText: state.authUser.errorText,
+});
+const mapDispatchToProps = dispatch => ({
+  auth: (values, history) => dispatch(login(values, history)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
