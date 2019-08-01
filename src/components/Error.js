@@ -13,7 +13,7 @@ class Error extends Component {
 }
 
 Error.propTypes = {
-  errorText: PropTypes.string.isRequired,
+  errorText: PropTypes.any.isRequired,
 };
 
 export default Error;

@@ -5,6 +5,8 @@ import Loader from 'react-loader-spinner';
 import Error from '../components/Error';
 import { getPlaylists } from '../actions';
 import Playlist from '../components/Playlist';
+import MenuList from '../components/Menu/MenuList';
+
 
 class Playlists extends Component {
   componentDidMount() {
@@ -17,7 +19,7 @@ class Playlists extends Component {
       playlistsItems, isLoading, errorText, getData,
     } = this.props;
     return (
-      <div>
+      <MenuList>
         {isLoading && (
           <Loader
             type="Ball-Triangle"
@@ -35,7 +37,7 @@ class Playlists extends Component {
         {playlistsItems.map(list => (
           <Playlist key={list.id} id={list.id} title={list.title} />
         ))}
-      </div>
+      </MenuList>
     );
   }
 }

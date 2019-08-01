@@ -1,18 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import MenuItem from './Menu/MenuItem';
+import MenuLink from './Menu/MenuLink';
 
 class Playlist extends Component {
   render() {
     const { id, title } = this.props;
     return (
-      <div>
-        <div key={id}>
-          <Link to={`/playlists/${id}`}>
+        <MenuItem key={id}>
+          <MenuLink to={`/playlists/${id}`}>
             {title}
-          </Link>
-        </div>
-      </div>
+          </MenuLink>
+        </MenuItem>
     );
   }
 }

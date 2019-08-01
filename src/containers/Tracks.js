@@ -8,9 +8,19 @@ import { getTracks } from '../actions';
 
 class Tracks extends Component {
   componentDidMount() {
+    console.log('Load data from back (by componentDidMount)');
     const playlistId = this.props.match.params.id;
     const { getData } = this.props;
     getData(playlistId);
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (prevProps.match.params.id !== this.props.match.params.id) {
+      console.log('Load data from back (by componentDidUpdate)');
+      const playlistId = this.props.match.params.id;
+      const { getData } = this.props;
+      getData(playlistId);
+    }
   }
 
   render() {

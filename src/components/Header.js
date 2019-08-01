@@ -1,26 +1,26 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import PropTypes from 'prop-types';
+import MenuList from "./Menu/MenuList";
+import MenuItem from "./Menu/MenuItem";
+import MenuLink from "./Menu/MenuLink";
 
 class Header extends Component {
   render() {
     return (
-      <div>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/radio/">Radio</Link>
-          </li>
-          <li>
-            <Link to="/playlists/">Playlists</Link>
-          </li>
-          <li>
-            <Link to="/help/">Help</Link>
-          </li>
-        </ul>
-      </div>
+      <MenuList>
+          <MenuItem>
+            <MenuLink to="/">Home</MenuLink>
+          </MenuItem>
+          <MenuItem>
+            <MenuLink to="/radio/">Radio</MenuLink>
+          </MenuItem>
+          <MenuItem>
+            <MenuLink to="/playlists/">Playlists</MenuLink>
+          </MenuItem>
+          <MenuItem>
+            <MenuLink to="/help/">Help</MenuLink>
+          </MenuItem>
+      </MenuList>
     );
   }
 }

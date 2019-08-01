@@ -4,6 +4,8 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import rootReducer from './reducers';
+import './normalize.css'
+import './scaffolding.css';
 import './index.css';
 import App from './containers/App';
 import * as serviceWorker from './serviceWorker';
