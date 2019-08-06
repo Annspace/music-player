@@ -29,6 +29,11 @@ const LayoutMain = styled.div`
     display: flex;
     overflow: auto;
 `;
+const MainContent = styled.div`
+    flex: 1;
+    position: relative;
+    background-color: #020916;
+`;
 const LayoutFooter = styled.div`
     height: 96px;
     border: 1px solid blue;
@@ -66,10 +71,12 @@ class App extends Component {
               </SideBar>
             </LayoutSidebar>
             <LayoutMain>
-              <Route exact path="/" component={Feed}/>
-              <Route path="/radio" component={Radio}/>
-              <Route path="/playlists/:id" component={Tracks}/>
-              <Route path="/help" component={Help}/>
+              <MainContent>
+                <Route exact path="/" component={Feed}/>
+                <Route path="/radio" component={Radio}/>
+                <Route path="/playlists/:id" component={Tracks}/>
+                <Route path="/help" component={Help}/>
+              </MainContent>
             </LayoutMain>
           </LayoutTop>
           <LayoutFooter>

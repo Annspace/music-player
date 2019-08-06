@@ -1,10 +1,20 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
-const MenuLink = styled(Link)`
+const activeClassName = 'current';
+
+const MenuLink = styled(NavLink).attrs({
+  activeClassName: activeClassName,
+  exact: true,
+})`
   color: #a9a9a9;
   :hover {
-    color: #dcdcdc;
+    color: #dcdcdc;  
+  }
+  &.${activeClassName},
+  &.${activeClassName}:hover
+   {
+    color: #ffffff;
   }
 `;
 

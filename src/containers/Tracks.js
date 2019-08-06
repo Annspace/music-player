@@ -4,19 +4,20 @@ import Loader from 'react-loader-spinner';
 import PropTypes from 'prop-types';
 import Error from '../components/Error';
 import Track from '../components/Track';
+import MainContentHeader from '../components/MainContentHeader';
+import Table from '../components/Table/Table';
+import TableHeader from '../components/Table/TableHeader';
 import { getTracks } from '../actions';
 
 class Tracks extends Component {
   componentDidMount() {
-    console.log('Load data from back (by componentDidMount)');
     const playlistId = this.props.match.params.id;
     const { getData } = this.props;
     getData(playlistId);
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
+  componentDidUpdate(prevProps) {
     if (prevProps.match.params.id !== this.props.match.params.id) {
-      console.log('Load data from back (by componentDidUpdate)');
       const playlistId = this.props.match.params.id;
       const { getData } = this.props;
       getData(playlistId);
@@ -26,34 +27,36 @@ class Tracks extends Component {
   render() {
     const { tracksItems, isLoading, errorText } = this.props;
     return (
-      <div>
-        {isLoading && (
-          <Loader
-            type="Ball-Triangle"
-            color="#00BFFF"
-            height="100"
-            width="100"
-          />
-        )}
+      <React.Fragment>
+        <MainContentHeader/>
         {errorText && <Error errorText={errorText} />}
-        <div>
-          {
-            tracksItems.map((track) => {
-              const {
-                id, title, artist, duration,
-              } = track;
-              return (
-                <Track
-                  key={id}
-                  title={title}
-                  artist={artist}
-                  duration={duration}
-                />
-              );
-            })
-          }
-        </div>
-      </div>
+        <Table>
+          <tbody>
+            <tr>
+              <th>&nbsp;</th>
+              <th>&nbsp;</th>
+              <TableHeader>Title</TableHeader>
+              <TableHeader>Artist</TableHeader>
+              <th>&nbsp;</th>
+            </tr>
+          </tbody>
+          {/*{*/}
+            {/*tracksItems.map((track) => {*/}
+              {/*const {*/}
+                {/*id, title, artist, duration,*/}
+              {/*} = track;*/}
+              {/*return (*/}
+                {/*<Track*/}
+                  {/*key={id}*/}
+                  {/*title={title}*/}
+                  {/*artist={artist}*/}
+                  {/*duration={duration}*/}
+                {/*/>*/}
+              {/*);*/}
+            {/*})*/}
+          {/*}*/}
+        </Table>
+      </React.Fragment>
     );
   }
 }
