@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Loader from 'react-loader-spinner';
 import PropTypes from 'prop-types';
 import Error from '../components/Error';
 import Track from '../components/Track';
@@ -33,28 +32,29 @@ class Tracks extends Component {
         <Table>
           <tbody>
             <tr>
-              <th>&nbsp;</th>
-              <th>&nbsp;</th>
+              <TableHeader>&nbsp;</TableHeader>
+              <TableHeader>&nbsp;</TableHeader>
               <TableHeader>Title</TableHeader>
               <TableHeader>Artist</TableHeader>
-              <th>&nbsp;</th>
+              <TableHeader>Duration</TableHeader>
             </tr>
+              {
+                tracksItems.map((track) => {
+                  const {
+                    id, title, artist, duration,
+                  } = track;
+                  return (
+                    <Track
+                      key={id}
+                      title={title}
+                      artist={artist}
+                      duration={duration}
+                    />
+                  );
+                })
+              }
           </tbody>
-          {/*{*/}
-            {/*tracksItems.map((track) => {*/}
-              {/*const {*/}
-                {/*id, title, artist, duration,*/}
-              {/*} = track;*/}
-              {/*return (*/}
-                {/*<Track*/}
-                  {/*key={id}*/}
-                  {/*title={title}*/}
-                  {/*artist={artist}*/}
-                  {/*duration={duration}*/}
-                {/*/>*/}
-              {/*);*/}
-            {/*})*/}
-          {/*}*/}
+
         </Table>
       </React.Fragment>
     );

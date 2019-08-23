@@ -9,6 +9,7 @@ import Tracks from './Tracks';
 import Help from './Help';
 import Menu from '../components/Menu/Menu';
 import MenuHeader from '../components/Menu/MenuHeader';
+import MenuHeaderIcon from '../components/Menu/MenuHeaderIcon';
 
 const Layout = styled.div`
     width: 100%; 
@@ -34,10 +35,6 @@ const MainContent = styled.div`
     position: relative;
     background-color: #020916;
 `;
-const LayoutFooter = styled.div`
-    height: 96px;
-    border: 1px solid blue;
-`;
 const SideBar = styled.div`
     background-image: linear-gradient(to top, #010b1e 0%, #020b1c 100%);
     opacity: 0.91;
@@ -48,12 +45,48 @@ const SideBar = styled.div`
     overflow: auto;
 `;
 
+const LayoutFooter = styled.div`
+    height: 96px;
+`;
+
+const Player = styled.div`
+    background-image: linear-gradient(to top, #020814 0%, #030d20 100%);
+    opacity: 0.98;
+    flex: 1;
+    padding: 21px 30px 21px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+`;
+
 class App extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      showNav: true,
+      showPlaylists: true,
+    };
+    this.toggleNavItems = this.toggleNavItems.bind(this);
+    this.togglePlaylistsItems = this.togglePlaylistsItems.bind(this);
   }
 
+  toggleNavItems() {
+    const {showNav} = this.state;
+    this.setState({
+      showNav: !showNav,
+    });
+  };
+
+  togglePlaylistsItems() {
+    const {showPlaylists} = this.state;
+    this.setState({
+      showPlaylists: !showPlaylists
+    });
+  };
+
   render() {
+    const {showNav, showPlaylists} = this.state;
     return (
       <Router>
         <Layout>
@@ -61,12 +94,22 @@ class App extends Component {
             <LayoutSidebar>
               <SideBar>
                 <Menu>
-                  <MenuHeader>Navigation</MenuHeader>
-                  <Header/>
+                  <MenuHeader>
+                    <span>Navigation</span>
+                    <div onClick={this.toggleNavItems}>
+                      <MenuHeaderIcon/>
+                    </div>
+                  </MenuHeader>
+                  {showNav && <Header/>}
                 </Menu>
                 <Menu>
-                  <MenuHeader>Playlists</MenuHeader>
-                  <Playlists/>
+                  <MenuHeader>
+                    <span>Playlists</span>
+                    <div onClick={this.togglePlaylistsItems}>
+                      <MenuHeaderIcon/>
+                    </div>
+                  </MenuHeader>
+                  {showPlaylists && <Playlists/>}
                 </Menu>
               </SideBar>
             </LayoutSidebar>
@@ -80,7 +123,8 @@ class App extends Component {
             </LayoutMain>
           </LayoutTop>
           <LayoutFooter>
-            Footer
+              <Player>
+              </Player>
           </LayoutFooter>
         </Layout>
       </Router>
