@@ -8,8 +8,6 @@ import Playlists from './Playlists';
 import Tracks from './Tracks';
 import Help from './Help';
 import Menu from '../components/Menu/Menu';
-import MenuHeader from '../components/Menu/MenuHeader';
-import MenuHeaderIcon from '../components/Menu/MenuHeaderIcon';
 
 const Layout = styled.div`
     width: 100%; 
@@ -29,6 +27,7 @@ const LayoutMain = styled.div`
     flex: 1; 
     display: flex;
     overflow: auto;
+    overflow: hidden;
 `;
 const MainContent = styled.div`
     flex: 1;
@@ -63,54 +62,17 @@ const Player = styled.div`
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      showNav: true,
-      showPlaylists: true,
-    };
-    this.toggleNavItems = this.toggleNavItems.bind(this);
-    this.togglePlaylistsItems = this.togglePlaylistsItems.bind(this);
   }
 
-  toggleNavItems() {
-    const {showNav} = this.state;
-    this.setState({
-      showNav: !showNav,
-    });
-  };
-
-  togglePlaylistsItems() {
-    const {showPlaylists} = this.state;
-    this.setState({
-      showPlaylists: !showPlaylists
-    });
-  };
-
   render() {
-    const {showNav, showPlaylists} = this.state;
     return (
       <Router>
         <Layout>
           <LayoutTop>
             <LayoutSidebar>
               <SideBar>
-                <Menu>
-                  <MenuHeader>
-                    <span>Navigation</span>
-                    <div onClick={this.toggleNavItems}>
-                      <MenuHeaderIcon/>
-                    </div>
-                  </MenuHeader>
-                  {showNav && <Header/>}
-                </Menu>
-                <Menu>
-                  <MenuHeader>
-                    <span>Playlists</span>
-                    <div onClick={this.togglePlaylistsItems}>
-                      <MenuHeaderIcon/>
-                    </div>
-                  </MenuHeader>
-                  {showPlaylists && <Playlists/>}
-                </Menu>
+                <Menu title='Navigation' body={<Header/>}/>
+                <Menu title='Playlists' body={<Playlists/>}/>
               </SideBar>
             </LayoutSidebar>
             <LayoutMain>
@@ -121,6 +83,10 @@ class App extends Component {
                 <Route path="/help" component={Help}/>
               </MainContent>
             </LayoutMain>
+            <LayoutSidebar>
+              <SideBar>
+              </SideBar>
+            </LayoutSidebar>
           </LayoutTop>
           <LayoutFooter>
               <Player>

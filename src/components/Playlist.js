@@ -8,7 +8,9 @@ class Playlist extends Component {
     const { id, title } = this.props;
     return (
         <MenuItem key={id}>
-          <MenuLink to={`/playlists/${id}`}>
+          <MenuLink
+            // isActive={() => navLink.path === this.props.pathname}
+            to={`/playlists/${id}`}>
             {title}
           </MenuLink>
         </MenuItem>

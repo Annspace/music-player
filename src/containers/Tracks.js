@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Error from '../components/Error';
 import Track from '../components/Track';
-import MainContentHeader from '../components/MainContentHeader';
+import PlaylistHeader from '../components/PlaylistHeader';
 import Table from '../components/Table/Table';
 import TableHeader from '../components/Table/TableHeader';
 import { getTracks } from '../actions';
@@ -25,12 +25,21 @@ class Tracks extends Component {
 
   render() {
     const { tracksItems, isLoading, errorText } = this.props;
+    const title = 'Queen';
+    const desc = 'Cool album';
     return (
-      <React.Fragment>
-        <MainContentHeader/>
+      <>
+        <PlaylistHeader title={title} desc={desc}/>
         {errorText && <Error errorText={errorText} />}
         <Table>
-          <tbody>
+          <colgroup>
+            <col style={{width:'40px'}}/>
+            <col style={{width:'40px'}}/>
+            <col/>
+            <col style={{width:'370px'}}/>
+            <col style={{width:'60px'}}/>
+          </colgroup>
+          <thead>
             <tr>
               <TableHeader>&nbsp;</TableHeader>
               <TableHeader>&nbsp;</TableHeader>
@@ -38,6 +47,8 @@ class Tracks extends Component {
               <TableHeader>Artist</TableHeader>
               <TableHeader>Duration</TableHeader>
             </tr>
+          </thead>
+          <tbody>
               {
                 tracksItems.map((track) => {
                   const {
@@ -56,7 +67,7 @@ class Tracks extends Component {
           </tbody>
 
         </Table>
-      </React.Fragment>
+      </>
     );
   }
 }
