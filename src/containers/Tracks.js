@@ -1,12 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import Error from '../components/Error';
 import Track from '../components/Track';
 import PlaylistHeader from '../components/PlaylistHeader';
 import Table from '../components/Table/Table';
 import TableHeader from '../components/Table/TableHeader';
+import PerfectScrollbar from 'react-perfect-scrollbar'
 import { getTracks } from '../actions';
+
+
+const Scroll = styled(PerfectScrollbar)`
+    position: relative;
+    overflow: hidden;
+    height: 500px;
+`;
 
 class Tracks extends Component {
   componentDidMount() {
@@ -31,43 +40,44 @@ class Tracks extends Component {
       <>
         <PlaylistHeader title={title} desc={desc}/>
         {errorText && <Error errorText={errorText} />}
-        <Table>
-          <colgroup>
-            <col style={{width:'40px'}}/>
-            <col style={{width:'40px'}}/>
-            <col/>
-            <col style={{width:'370px'}}/>
-            <col style={{width:'60px'}}/>
-          </colgroup>
-          <thead>
-            <tr>
-              <TableHeader>&nbsp;</TableHeader>
-              <TableHeader>&nbsp;</TableHeader>
-              <TableHeader>Title</TableHeader>
-              <TableHeader>Artist</TableHeader>
-              <TableHeader>Duration</TableHeader>
-            </tr>
-          </thead>
-          <tbody>
-              {
-                tracksItems.map((track) => {
-                  const {
-                    id, title, artist, duration,
-                  } = track;
-                  return (
-                    <Track
-                      key={id}
-                      title={title}
-                      artist={artist}
-                      duration={duration}
-                    />
-                  );
-                })
-              }
-          </tbody>
-
-        </Table>
-      </>
+        <Scroll>
+          <Table>
+            <colgroup>
+              <col style={{width:'40px'}}/>
+              <col style={{width:'40px'}}/>
+              <col/>
+              <col style={{width:'370px'}}/>
+              <col style={{width:'60px'}}/>
+            </colgroup>
+            <thead>
+              <tr>
+                <TableHeader>&nbsp;</TableHeader>
+                <TableHeader>&nbsp;</TableHeader>
+                <TableHeader>Title</TableHeader>
+                <TableHeader>Artist</TableHeader>
+                <TableHeader>Duration</TableHeader>
+              </tr>
+            </thead>
+            <tbody>
+                {
+                  tracksItems.map((track) => {
+                    const {
+                      id, title, artist, duration,
+                    } = track;
+                    return (
+                      <Track
+                        key={id}
+                        title={title}
+                        artist={artist}
+                        duration={duration}
+                      />
+                    );
+                  })
+                }
+            </tbody>
+          </Table>
+        </Scroll>
+        </>
     );
   }
 }

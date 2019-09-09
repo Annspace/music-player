@@ -8,6 +8,9 @@ import Playlists from './Playlists';
 import Tracks from './Tracks';
 import Help from './Help';
 import Menu from '../components/Menu/Menu';
+import PlayingSong from '../components/Player/PlayingSong';
+import PlayerControls from '../components/Player/PlayerControls';
+import PlayerSoundControls from "../components/Player/PlayerSoundControls";
 
 const Layout = styled.div`
     width: 100%; 
@@ -27,7 +30,6 @@ const LayoutMain = styled.div`
     flex: 1; 
     display: flex;
     overflow: auto;
-    overflow: hidden;
 `;
 const MainContent = styled.div`
     flex: 1;
@@ -90,6 +92,9 @@ class App extends Component {
           </LayoutTop>
           <LayoutFooter>
               <Player>
+                <PlayingSong/>
+                <PlayerControls/>
+                <PlayerSoundControls/>
               </Player>
           </LayoutFooter>
         </Layout>
