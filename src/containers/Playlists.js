@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Loader from 'react-loader-spinner';
 import Error from '../components/Error';
 import { getPlaylists } from '../actions';
 import Playlist from '../components/Playlist';
@@ -20,14 +19,6 @@ class Playlists extends Component {
     } = this.props;
     return (
       <MenuList>
-        {isLoading && (
-          <Loader
-            type="Ball-Triangle"
-            color="#00BFFF"
-            height="100"
-            width="100"
-          />
-        )}
         {errorText && (
           <div>
             <Error errorText={errorText}/>

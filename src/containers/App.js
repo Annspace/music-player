@@ -8,7 +8,10 @@ import Playlists from './Playlists';
 import Tracks from './Tracks';
 import Help from './Help';
 import Menu from '../components/Menu/Menu';
-import MenuHeader from '../components/Menu/MenuHeader';
+import PlayingSong from '../components/Player/PlayingSong';
+import PlayerControls from '../components/Player/PlayerControls';
+import PlayerSoundControls from '../components/Player/PlayerSoundControls';
+import PlayerLine from '../components/Player/PlayerLine';
 
 const Layout = styled.div`
     width: 100%; 
@@ -27,11 +30,12 @@ const LayoutSidebar = styled.div`
 const LayoutMain = styled.div`
     flex: 1; 
     display: flex;
-    overflow: auto;
+    overflow: hidden;
 `;
-const LayoutFooter = styled.div`
-    height: 96px;
-    border: 1px solid blue;
+const MainContent = styled.div`
+    flex: 1;
+    position: relative;
+    background-color: #020916;
 `;
 const SideBar = styled.div`
     background-image: linear-gradient(to top, #010b1e 0%, #020b1c 100%);
@@ -41,6 +45,21 @@ const SideBar = styled.div`
     padding-right: 25px;
     flex: 1;
     overflow: auto;
+`;
+
+const LayoutFooter = styled.div`
+    height: 96px;
+`;
+
+const Player = styled.div`
+    background-image: linear-gradient(to top, #020814 0%, #030d20 100%);
+    opacity: 0.98;
+    flex: 1;
+    padding: 21px 30px 21px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
 `;
 
 class App extends Component {
@@ -55,25 +74,30 @@ class App extends Component {
           <LayoutTop>
             <LayoutSidebar>
               <SideBar>
-                <Menu>
-                  <MenuHeader>Navigation</MenuHeader>
-                  <Header/>
-                </Menu>
-                <Menu>
-                  <MenuHeader>Playlists</MenuHeader>
-                  <Playlists/>
-                </Menu>
+                <Menu title='Navigation' body={<Header/>}/>
+                <Menu title='Playlists' body={<Playlists/>}/>
               </SideBar>
             </LayoutSidebar>
             <LayoutMain>
-              <Route exact path="/" component={Feed}/>
-              <Route path="/radio" component={Radio}/>
-              <Route path="/playlists/:id" component={Tracks}/>
-              <Route path="/help" component={Help}/>
+              <MainContent>
+                <Route exact path="/" component={Feed}/>
+                <Route path="/radio" component={Radio}/>
+                <Route path="/playlists/:id" component={Tracks}/>
+                <Route path="/help" component={Help}/>
+              </MainContent>
             </LayoutMain>
+            <LayoutSidebar>
+              <SideBar>
+              </SideBar>
+            </LayoutSidebar>
           </LayoutTop>
           <LayoutFooter>
-            Footer
+              <Player>
+                <PlayerLine/>
+                <PlayingSong/>
+                <PlayerControls/>
+                <PlayerSoundControls/>
+              </Player>
           </LayoutFooter>
         </Layout>
       </Router>
