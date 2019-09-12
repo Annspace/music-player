@@ -7,15 +7,13 @@ import Track from '../components/Track';
 import PlaylistHeader from '../components/PlaylistHeader';
 import Table from '../components/Table/Table';
 import TableHeader from '../components/Table/TableHeader';
-import PerfectScrollbar from 'react-perfect-scrollbar'
 import { getTracks } from '../actions';
 
-
-const Scroll = styled(PerfectScrollbar)`
-    position: relative;
-    overflow: hidden;
-    height: 500px;
+const TableWrapper = styled.div`
+  height: 600px;
+  overflow-y: scroll;
 `;
+
 
 class Tracks extends Component {
   componentDidMount() {
@@ -40,7 +38,7 @@ class Tracks extends Component {
       <>
         <PlaylistHeader title={title} desc={desc}/>
         {errorText && <Error errorText={errorText} />}
-        <Scroll>
+        <TableWrapper>
           <Table>
             <colgroup>
               <col style={{width:'40px'}}/>
@@ -76,7 +74,7 @@ class Tracks extends Component {
                 }
             </tbody>
           </Table>
-        </Scroll>
+        </TableWrapper>
         </>
     );
   }

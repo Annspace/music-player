@@ -5,7 +5,7 @@ const Table = styled.table`
     border-collapse: separate;
     border-spacing: 22px;
     background-color: #020916;
-    margin-top: 18px;    
+    margin-top: 60px;  
 `;
 
 export default Table;

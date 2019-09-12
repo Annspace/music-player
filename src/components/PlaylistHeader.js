@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import dog from '../images/dog.jpg'
+import car from '../images/car.png'
+
 
 const PlaylistHeaderWrapper = styled.div`
     background-image: url(${dog}), linear-gradient(180deg, rgba(7, 41, 86, 0.12) 0%, #020916 100%);
@@ -37,7 +39,7 @@ const Type = styled.div`
     text-transform: uppercase;
 `;
 
-const Desc =styled.div`
+const Desc = styled.div`
     width: 201px;
     height: 25px;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
@@ -46,6 +48,16 @@ const Desc =styled.div`
     font-size: 18px;
     font-weight: 400;
     letter-spacing: 0.07px;
+`;
+
+const Img = styled.div`
+    position: absolute;
+    width: 225px;
+    height: 225px;
+    background-image: url(${car});
+    left: 60px;
+    top: 112px;
+    z-index: 1;
 `;
 
 class PlaylistHeader extends Component {
@@ -61,6 +73,7 @@ class PlaylistHeader extends Component {
           <Title>{title}</Title>
           <Desc>{desc}</Desc>
         </MainContentHeaderDesc>
+        <Img/>
       </PlaylistHeaderWrapper>
     );
   }

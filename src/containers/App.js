@@ -10,7 +10,8 @@ import Help from './Help';
 import Menu from '../components/Menu/Menu';
 import PlayingSong from '../components/Player/PlayingSong';
 import PlayerControls from '../components/Player/PlayerControls';
-import PlayerSoundControls from "../components/Player/PlayerSoundControls";
+import PlayerSoundControls from '../components/Player/PlayerSoundControls';
+import PlayerLine from '../components/Player/PlayerLine';
 
 const Layout = styled.div`
     width: 100%; 
@@ -29,7 +30,7 @@ const LayoutSidebar = styled.div`
 const LayoutMain = styled.div`
     flex: 1; 
     display: flex;
-    overflow: auto;
+    overflow: hidden;
 `;
 const MainContent = styled.div`
     flex: 1;
@@ -92,6 +93,7 @@ class App extends Component {
           </LayoutTop>
           <LayoutFooter>
               <Player>
+                <PlayerLine/>
                 <PlayingSong/>
                 <PlayerControls/>
                 <PlayerSoundControls/>
